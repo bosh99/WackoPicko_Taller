@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: fluidattacks/sast-action@v1.3.0
+      - uses: fluidattacks/sast-action@1.3.0
         id: scan
         with:
           scan_config_path: .github/sast-config.yaml
@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: fluidattacks/sca-action@v1.2.0
+      - uses: fluidattacks/sca-action@1.2.0
         id: scan
         with:
           scan_config_path: .github/sca-config.yaml
@@ -52,7 +52,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: fluidattacks/ss-action@v0.2.0
+      - uses: fluidattacks/ss-action@0.2.0
         id: scan
         with:
           scan_config_path: .github/ss-config.yaml
