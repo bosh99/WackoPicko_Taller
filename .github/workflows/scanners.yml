@@ -22,6 +22,11 @@ jobs:
         id: scan
         with:
           scan_config_path: .github/sast-config.yaml
+          scanner_mode: full
+
+      - name: Fail if vulnerabilities found
+        if: steps.scan.outputs.vulnerabilities_found == 'true'
+        run: exit 1
 
       - name: Upload CSV
         if: always()
@@ -42,6 +47,11 @@ jobs:
         id: scan
         with:
           scan_config_path: .github/sca-config.yaml
+          scanner_mode: full
+
+      - name: Fail if vulnerabilities found
+        if: steps.scan.outputs.vulnerabilities_found == 'true'
+        run: exit 1
 
       - name: Upload CSV
         if: always()
@@ -64,6 +74,11 @@ jobs:
         id: scan
         with:
           scan_config_path: .github/ss-config.yaml
+          scanner_mode: full
+
+      - name: Fail if vulnerabilities found
+        if: steps.scan.outputs.vulnerabilities_found == 'true'
+        run: exit 1
 
       - name: Upload CSV
         if: always()
