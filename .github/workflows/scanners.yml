@@ -1,0 +1,64 @@
+name: Scanners (SAST, SCA, SS)
+
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: "0 8 * * 1"
+
+jobs:
+  sast:
+    name: SAST
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: fluidattacks/sast-action@v1.3.0
+        id: scan
+        with:
+          scan_config_path: .github/sast-config.yaml
+
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif_file }}
+
+  sca:
+    name: SCA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: fluidattacks/sca-action@v1.2.0
+        id: scan
+        with:
+          scan_config_path: .github/sca-config.yaml
+
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif_file }}
+
+  ss:
+    name: Secret Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: fluidattacks/ss-action@v0.2.0
+        id: scan
+        with:
+          scan_config_path: .github/ss-config.yaml
+
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif_file }}
