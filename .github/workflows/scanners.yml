@@ -23,12 +23,6 @@ jobs:
         with:
           scan_config_path: .github/sast-config.yaml
 
-      - name: Upload SARIF
-        if: always()
-        uses: github/codeql-action/upload-sarif@v4
-        with:
-          sarif_file: ${{ steps.scan.outputs.sarif_file }}
-
       - name: Upload CSV
         if: always()
         uses: actions/upload-artifact@v4
@@ -48,12 +42,6 @@ jobs:
         id: scan
         with:
           scan_config_path: .github/sca-config.yaml
-
-      - name: Upload SARIF
-        if: always()
-        uses: github/codeql-action/upload-sarif@v4
-        with:
-          sarif_file: ${{ steps.scan.outputs.sarif_file }}
 
       - name: Upload CSV
         if: always()
@@ -76,12 +64,6 @@ jobs:
         id: scan
         with:
           scan_config_path: .github/ss-config.yaml
-
-      - name: Upload SARIF
-        if: always()
-        uses: github/codeql-action/upload-sarif@v4
-        with:
-          sarif_file: ${{ steps.scan.outputs.sarif_file }}
 
       - name: Upload CSV
         if: always()

@@ -2,5 +2,5 @@ ss:
   include:
     - .
 output:
-  file_path: results
-  format: ALL
+  file_path: results.csv
+  format: CSV
