@@ -29,6 +29,13 @@ jobs:
         with:
           sarif_file: ${{ steps.scan.outputs.sarif_file }}
 
+      - name: Upload CSV
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sast-results-csv
+          path: results.csv
+
   sca:
     name: SCA
     runs-on: ubuntu-latest
@@ -47,6 +54,13 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ${{ steps.scan.outputs.sarif_file }}
+
+      - name: Upload CSV
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sca-results-csv
+          path: results.csv
 
   ss:
     name: Secret Scan
@@ -68,3 +82,10 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ${{ steps.scan.outputs.sarif_file }}
+
+      - name: Upload CSV
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ss-results-csv
+          path: results.csv

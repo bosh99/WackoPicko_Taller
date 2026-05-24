@@ -2,5 +2,5 @@ ss:
   include:
     - .
 output:
-  file_path: results.sarif
-  format: SARIF
+  file_path: results
+  format: ALL
